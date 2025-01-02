@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone 15 Replica</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .iphone {
+            width: 345px;
+            height: 680px;
+            border: 16px solid black;
+            border-radius: 36px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dynamic-island {
+            width: 120px;
+            height: 30px;
+            background-color: black;
+            border-radius: 15px;
+            position: absolute;
+            top: 10px;
+            left: calc(50% - 60px);
+            z-index: 2;
+        }
+       
+        #timeDisplay {
+    position: absolute; /* Absolute positioning within .dynamic-island */
+    top: 4px;
+    right: 182px;
+    display: flex;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    color: white;
+    font-size: 16px; /* Adjust font size as needed */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    
+}
+       
+        .home-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(150% - 90px);
+            background-image: url('https://i.redd.it/best-iphone-15-pro-wallpapers-v0-3z4ybltl51ub1.jpg?width=1720&format=pjpg&auto=webp&s=2bd2496d7ae34dac572652c941ea2a55c1a44bbe');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .floating-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            z-index: 3;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .floating-container img {
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+        .iconsed {
+    position: absolute; /* or 'fixed' if you want it relative to the viewport */
+    width: 29px;
+    height: 29px;
+    right: 4px; /* This will position it 16px from the right edge */
+    top: 12px; /* This will position it 16px from the top */
+}
+
+.iconsed img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+        .calculator {
+            background-color: #000;
+            border-radius: 20px;
+            padding: 20px;
+            width: 300px;
+            height: 630px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 4;
+            display: none;
+        }
+
+        .display {
+            background-color: #000000eb;
+            color: #fff;
+            font-size: 64px;
+            text-align: right;
+            padding: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            height: 70px;
+            cursor: pointer;
+        }
+
+        .number, .decimal {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .operator {
+            background-color: #f1a33c;
+            color: #fff;
+        }
+
+        .function {
+            background-color: #a5a5a5;
+            color: #000;
+        }
+
+        .zero {
+            grid-column: span 2;
+            border-radius: 35px;
+            text-align: left;
+            padding-left: 30px;
+        }
+
+       
+        .phone-container {
+            background-color: #fff;
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            z-index: 3;  /* Make sure this is above the modal background */
+            position: absolute;
+        }
+        #phone-display-contant {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow-y: auto;
+        }
+
+        #displayed {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            height: 40px;
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .keypad button {
+            font-size: 24px;
+            padding: 15px;
+            border: none;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .keypad button:hover {
+            background-color: #d0d0d0;
+        }
+
+        .phone-bottom-nav {
+             display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 10px;
+        }
+        .phone-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        .phone-nav-item.active {
+            color: #007aff
+        }
+
+        .phone-nav-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .message {
+            font-size: 18px;
+            color: #999;
+        }
+        .recent-call {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: left;
+            width: 100%;
+        }
+        .recent-call:last-child {
+            border-bottom: none;
+        }
+    
+
+        .modal-background {
+    position: fixed;  /* Ensures the background covers the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);  /* Slight transparent background */
+    z-index: 2;  /* Below the modals but above the rest of the content */
+    display: none;  /* Hidden by default */
+}
+.calculator {
+    z-index: 3;  /* Make sure this is above the modal background */
+    position: absolute;
+}
+
+
+        
+
+     
+
+    </style>
+</head>
+<body>
+    <div class="iphone">
+        
+        <div class="dynamic-island">
+
+            <div  id="timeDisplay">
+                <span style="color: white;">12:45</span>
+                
+            </div>
+            
+            
+        </div>
+        <div class="iconsed" >
+            <img src='https://www.mactrast.com/wp-content/uploads/2023/09/iphone-x-battery-charge-icon-800x457.jpg' alt="">
+           
+            
+        </div>
+        
+        <div class="home-screen">
+            <div class="modal-background" id="modalBackground"></div> <!-- This should be at the same level as the modals -->
+
+          
+            <div class="floating-container">
+                <img class="icon" src="https://cdn.iconscout.com/icon/free/png-256/free-apple-phone-icon-download-in-svg-png-gif-file-formats--logo-call-apps-pack-user-interface-icons-493154.png?f=webp&w=256" alt="Phone" onclick="window.location.href='phone.html'">
+               
+                <img class="icon" src="https://cdn0.iconfinder.com/data/icons/apple-apps/100/Apple_Messages-512.png" alt="messages" onclick="window.location.href='messages.html'">
+                <img class="icon" src="https://wallpapers.com/images/hd/calculator-app-icon-r7m10ao43yqireeq-2.jpg" alt="Calculator" onclick="openCalculator()">
+           
+                <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Apple_Calendar_%28iOS%29.svg/2048px-Apple_Calendar_%28iOS%29.svg.png" alt="calender" onclick="window.location.href='calender.html'">
+                <img class="icon" src="https://static-00.iconduck.com/assets.00/safari-ios-icon-1024x1024-az8dapz3.png" alt="safari" onclick="window.location.href='safari.html'">
+            </div>
+        </div>
+
+
+        <div class="calculator" id="calculatorModal">
+            <div class="display">0</div>
+            <div class="buttons">
+                <button class="function">AC</button>
+                <button class="function">±</button>
+                <button class="function">%</button>
+                <button class="operator">÷</button>
+                <button class="number">7</button>
+                <button class="number">8</button>
+                <button class="number">9</button>
+                <button class="operator">×</button>
+                <button class="number">4</button>
+                <button class="number">5</button>
+                <button class="number">6</button>
+                <button class="operator">-</button>
+                <button class="number">1</button>
+                <button class="number">2</button>
+                <button class="number">3</button>
+                <button class="operator">+</button>
+                <button class="number zero">0</button>
+                <button class="decimal">.</button>
+                <button class="operator">=</button>
+            </div>
+        </div>
+
+        <div class="phone-container" id="phoneModal">
+             
+            <!-- Add a content section to show tab content dynamically -->
+           
+            <div class="phone-display-contant" id="phoneDisplay"></div>
+
+            <div class="phone-bottom-nav">
+                <div class="phone-nav-item" onclick="setActive(document.querySelector('.phone-nav-item'), 'favorites')">
+                    <div class="phone-nav-icon">⭐</div>
+                    <div>Favorites</div>
+                </div>
+                <div class="phone-nav-item" onclick="setActive(document.querySelector('.phone-nav-item'), 'recents')">
+                    <div class="phone-nav-icon">🕒</div>
+                    <div>Recents</div>
+                </div>
+                <div class="phone-nav-item" onclick="setActive(document.querySelector('.phone-nav-item'), 'contacts')">
+                    <div class="phone-nav-icon">👤</div>
+                    <div>Contacts</div>
+                </div>
+                <div class="phone-nav-item" onclick="setActive(document.querySelector('.phone-nav-item'), 'keypad')">
+                    <div class="phone-nav-icon">⌨️</div>
+                    <div>Keypad</div>
+                </div>
+                <div class="phone-nav-item" onclick="setActive(document.querySelector('.phone-nav-item'), 'voicemail')">
+                    <div class="phone-nav-icon">🔊</div>
+                    <div>Voicemail</div>
+                </div>
+            </div>
+           
+            
+        </div>
+    </div>
+
+    <script>
+        
+        // Calculator variables
+        let currentInput = '0';
+        let previousInput = '0';
+        let operation = null;
+        let shouldResetScreen = false;
+
+        // Phone variables
+        let displayValue = '';
+        let displayed;
+        const content = document.getElementById('phone-display-contant');
+        let callHistory = [];
+
+        function openCalculator() {
+            document.getElementById('calculatorModal').style.display = 'block';
+            document.getElementById('phoneModal').style.display = 'none';
+        }
+
+        function openPhone() {
+            document.getElementById('phoneModal').style.display = 'block';
+            document.getElementById('calculatorModal').style.display = 'none';
+        }
+
+        function openSafari() {
+            alert('Safari clicked!');
+        }
+
+        // Calculator functions
+        function updateCalculatorDisplay() {
+            document.querySelector('.display').textContent = currentInput;
+        }
+
+        function appendNumber(number) {
+            if (currentInput === '0' || shouldResetScreen) {
+                currentInput = number;
+                shouldResetScreen = false;
+            } else {
+                currentInput += number;
+            }
+            updateCalculatorDisplay();
+        }
+
+        function appendDecimal() {
+            if (!currentInput.includes('.')) {
+                currentInput += '.';
+                updateCalculatorDisplay();
+            }
+        }
+
+        function handleOperator(op) {
+            if (operation !== null) calculate();
+            previousInput = currentInput;
+            operation = op;
+            shouldResetScreen = true;
+        }
+
+        function calculate() {
+            let result;
+            const prev = parseFloat(previousInput);
+            const current = parseFloat(currentInput);
+            switch(operation) {
+                case '+':
+                    result = prev + current;
+                    break;
+                case '-':
+                    result = prev - current;
+                    break;
+                case '×':
+                    result = prev * current;
+                    break;
+                case '÷':
+                    result = prev / current;
+                    break;
+                default:
+                    return;
+            }
+            currentInput = result.toString();
+            operation = null;
+            updateCalculatorDisplay();
+        }
+
+        function clearCalculator() {
+            currentInput = '0';
+            previousInput = '0';
+            operation = null;
+            updateCalculatorDisplay();
+        }
+
+        function changeSign() {
+            currentInput = (parseFloat(currentInput) * -1).toString();
+            updateCalculatorDisplay();
+        }
+
+        function percentage() {
+            currentInput = (parseFloat(currentInput) / 100).toString();
+            updateCalculatorDisplay();
+        }
+
+        // Attach event listeners to calculator buttons
+        document.querySelectorAll('.calculator button').forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.classList.contains('number')) {
+                    appendNumber(button.textContent);
+                } else if (button.classList.contains('decimal')) {
+                    appendDecimal();
+                } else if (button.classList.contains('operator')) {
+                    if (button.textContent === '=') {
+                        calculate();
+                    } else {
+                        handleOperator(button.textContent);
+                    }
+                } else if (button.classList.contains('function')) {
+                    if (button.textContent === 'AC') clearCalculator();
+                    else if (button.textContent === '±') changeSign();
+                    else if (button.textContent === '%') percentage();
+                }
+            });
+        });
+
+        // Phone functions
+      
+
+        function updatePhoneDisplay() {
+        document.getElementById('phoneDisplay').textContent = displayValue;
+    }
+
+    function addNumber(num) {
+            displayValue += num;
+            displayed.textContent = displayValue;
+        }
+
+   
+    // phone call realted
+    function call() {
+            if (displayValue) {
+                alert(`Calling ${displayValue}`);
+                callHistory.unshift({number: displayValue, date: new Date()}); // Add to call history
+                displayValue = '';
+                displayed.textContent = displayValue;
+            } else {
+                alert('Please enter a number first');
+            }
+        }
+
+ 
+function setActive(element, tab) {
+            document.querySelectorAll('.phone-nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            console.log(element)
+            element.classList.add('active');
+            console.log(tab,"----")
+
+            switch(tab) {
+                
+                case 'favorites':
+                    content.innerHTML = '<div class="message">No Favorites</div>';
+                    break;
+                case 'recents':
+                    if (callHistory.length > 0) {
+                        content.innerHTML = callHistory.map(call => `
+                            <div class="recent-call">
+                                <div>${call.number}</div>
+                                <div style="font-size: 12px; color: #999;">
+                                    ${call.date.toLocaleString()}
+                                </div>
+                            </div>
+                        `).join('');
+                    } else {
+                        content.innerHTML = '<div class="message">No Recents</div>';
+                    }
+                    break;
+                case 'contacts':
+                    content.innerHTML = '<div class="message">No Contacts</div>';
+                    break;
+                case 'voicemail':
+                    content.innerHTML = '<div class="message">No Voicemail</div>';
+                    break;
+                case 'keypad':
+                    content.innerHTML = `
+                        <div id="displayed"></div>
+                        <div class="keypad">
+                            <button onclick="addNumber('1')">1</button>
+                            <button onclick="addNumber('2')">2</button>
+                            <button onclick="addNumber('3')">3</button>
+                            <button onclick="addNumber('4')">4</button>
+                            <button onclick="addNumber('5')">5</button>
+                            <button onclick="addNumber('6')">6</button>
+                            <button onclick="addNumber('7')">7</button>
+                            <button onclick="addNumber('8')">8</button>
+                            <button onclick="addNumber('9')">9</button>
+                            <button onclick="addNumber('*')">*</button>
+                            <button onclick="addNumber('0')">0</button>
+                            <button onclick="addNumber('#')">#</button>
+                            <button class="call-btn" onclick="call()">Call</button>
+                        </div>
+                    `;
+                    displayed = document.getElementById('displayed');
+                    displayValue = ''; // Reset the display value
+                    break;
+            }
+        }
+         // Initialize the keypad on page load
+ window.onload = function() {
+            setActive(document.querySelector('.phone-nav-item.active'), 'keypad');
+        }
+     
+
+        // Initialize displays
+        updateCalculatorDisplay();
+        updatePhoneDisplay();
+        // Get modal elements
+const calculatorModal = document.getElementById('calculatorModal');
+const phoneModal = document.getElementById('phoneModal');
+const modalBackground = document.getElementById('modalBackground');
+
+// Function to open the calculator modal
+function openCalculator() {
+    calculatorModal.style.display = 'block';
+    phoneModal.style.display = 'none';  // Ensure the phone is hidden
+    modalBackground.style.display = 'block';  // Show the background
+}
+
+// Function to open the phone modal
+function openPhone() {
+    
+    phoneModal.style.display = 'flex';  // Show the phone modal
+    calculatorModal.style.display = 'none';  // Ensure the calculator is hidden
+    modalBackground.style.display = 'block';  // Show the background
+}
+function openPhone() {
+    document.getElementById('phoneModal').style.display = 'flex';
+    document.getElementById('calculatorModal').style.display = 'none';
+    document.getElementById('modalBackground').style.display = 'block';
+}
+
+// Hide modals and go back to home screen on click outside
+modalBackground.addEventListener('click', function () {
+    calculatorModal.style.display = 'none';
+    phoneModal.style.display = 'none';
+    modalBackground.style.display = 'none';  // Hide the background when closing
+});
+
+// Ensure clicking inside the modal does not close it
+calculatorModal.addEventListener('click', function (event) {
+    event.stopPropagation();  // Prevent click events from reaching the background
+});
+
+phoneModal.addEventListener('click', function (event) {
+    event.stopPropagation();  // Prevent click events from reaching the background
+});
+
+    </script>
+</body>
+</html>

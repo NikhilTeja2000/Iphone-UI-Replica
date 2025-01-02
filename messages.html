@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iPhone Messages Replica</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    .iphone {
+      width: 345px;
+      height: 680px;
+      border: 16px solid black;
+      border-radius: 36px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      background-color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dynamic-island {
+      width: 120px;
+      height: 30px;
+      background-color: black;
+      border-radius: 15px;
+      position: absolute;
+      top: 10px;
+      left: calc(50% - 60px);
+      z-index: 2;
+    }
+
+    .messages-app {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding-top: 50px; /* To avoid overlap with dynamic island */
+    }
+
+    .conversation-list {
+      width: 100%;
+      height: 100%;
+      border-bottom: 1px solid #ccc;
+      overflow-y: auto;
+      background-color: white;
+      position: absolute;
+      top: 50px; /* Adjust based on the dynamic island height */
+    }
+
+    .conversation-item {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .conversation-item:hover {
+      background-color: #e0e0e0;
+    }
+
+    .contact-name {
+      font-weight: bold;
+    }
+
+    .last-message {
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    .timestamp {
+      font-size: 0.8em;
+      color: #999;
+      text-align: right;
+    }
+
+   
+    .messages {
+      flex-grow: 1;
+      overflow-y: auto;
+      background-color: #f2f2f7;
+    }
+
+    .message {
+      display: flex;
+      margin-bottom: 50px;
+      max-width: 60%;
+      border-radius: 20px;
+      padding: 10px 15px;
+      position: relative;
+    }
+
+    .received {
+      background-color: #e5e5ea;
+      align-self: flex-start;
+    }
+
+    .sent {
+      background-color: #007aff;
+      align-self: flex-end;
+      color: white;
+    }
+
+    .message-content {
+      font-size: 1em;
+    }
+
+    .message-timestamp {
+      font-size: 0.8em;
+      color: #999;
+      position: absolute;
+      bottom: -15px;
+      right: 10px;
+    }
+
+    a {
+  text-decoration: none;
+  border-bottom: 0.2px solid rgb(8, 0, 0); /* Border thickness */
+  color: inherit; /* Keep the text color as is */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  text-align: center;
+  position: absolute; /* Ensure it's positioned relative to its container */
+  bottom: 0; /* Align it to the bottom of its container */
+  left: 0; /* Align it to the left of its container */
+  right: 0; /* Align it to the right of its container */
+  height: 190px; /* Adjust height as needed */
+}
+ 
+  </style>
+</head>
+<body>
+  <div class="iphone">
+    <div class="dynamic-island"></div>
+   
+    <div class="messages-app">
+        
+      <div class="conversation-list">
+        <div class="conversation-item">
+          <div class="contact-name">Nikhil Teja Chilakabattina</div>
+          <div class="last-message">Perfect! We’ve got this team 💪</div>
+          <div class="timestamp">2:15 PM</div>
+        </div>
+        <div class="conversation-item">
+          <div class="contact-name">Saketh Raghava</div>
+          <div class="last-message">I'm ready too! Practiced my part twice. What about the intro?</div>
+          <div class="timestamp">1:45 PM</div>
+        </div>
+        <div class="conversation-item">
+          <div class="contact-name">Venu Gopala Krishna</div>
+          <div class="last-message">Let's catch up later!</div>
+          <div class="timestamp">3:45 PM</div>
+        </div>
+        <div class="conversation-item">
+            <div class="contact-name">Nagasai Nadipally</div>
+            <div class="last-message"> I'll handle that. Don’t worry, I'll hype us up before we dive in. 😎</div>
+            <div class="timestamp">1:55 PM</div>
+          </div>
+          <div class="conversation-item">
+            <div class="contact-name">Ram</div>
+            <div class="last-message">Should we meet up 10 minutes early just to sync up?</div>
+            <div class="timestamp">2:15 PM</div>
+          </div>
+          <div class="conversation-item">
+            <div class="contact-name">Boyapati</div>
+            <div class="last-message">Let's catch up later!</div>
+            <div class="timestamp">6:45 PM</div>
+          </div>
+          <div class="conversation-item">
+            <div class="contact-name">Tech For Moblie Group</div>
+            <div class="last-message">Let's meet before class</div>
+            <div class="timestamp">8:45 PM</div>
+          </div>
+          <div class="conversation-item">
+            <div class="contact-name">UC Intelligent Group</div>
+            <div class="last-message">Let's catch up later!</div>
+            <div class="timestamp">9:45 PM</div>
+          </div>
+          <div class="conversation-item">
+            <div class="contact-name">James king pill</div>
+            <div class="last-message">Let's catch up later!</div>
+            <div class="timestamp">11:45 PM</div>
+          </div>
+      </div>
+      
+
+      
+    </div>
+    
+  </div>
+  <div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <a href="home.html">_____________</a>
+</div>
+
+  <script>
+    document.querySelector('.send-button').addEventListener('click', () => {
+      const input = document.querySelector('.message-input');
+      const message = input.value.trim();
+
+      if (message) {
+        const messagesDiv = document.querySelector('.messages');
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', 'sent');
+        
+        const contentSpan = document.createElement('span');
+        contentSpan.classList.add('message-content');
+        contentSpan.textContent = message;
+        
+        const timestampSpan = document.createElement('span');
+        timestampSpan.classList.add('message-timestamp');
+        timestampSpan.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+        
+        messageDiv.appendChild(contentSpan);
+        messageDiv.appendChild(timestampSpan);
+        
+        messagesDiv.appendChild(messageDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to bottom
+        
+        input.value = ''; // Clear input after sending
+      }
+    });
+
+  </script>
+</body>
+</html>

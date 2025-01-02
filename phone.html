@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Phone App</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .phone {
+            background-color: #fff;
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+        #content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow-y: auto;
+        }
+        #display {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            height: 40px;
+        }
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .keypad button {
+            font-size: 24px;
+            padding: 15px;
+            border: none;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .keypad button:hover {
+            background-color: #d0d0d0;
+        }
+        .call-btn {
+            grid-column: 1 / span 3;
+            background-color: #4cd964 !important;
+            color: white;
+            border-radius: 30px !important;
+        }
+        .call-btn:hover {
+            background-color: #3cbd53 !important;
+        }
+        .bottom-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 10px;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: #999;
+            cursor: pointer;
+        }
+        .nav-item.active {
+            color: #007aff;
+        }
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .message {
+            font-size: 18px;
+            color: #999;
+        }
+        .recent-call {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: left;
+            width: 100%;
+        }
+        .recent-call:last-child {
+            border-bottom: none;
+        }
+        a {
+            text-decoration: none;
+    border-bottom: 0.2px solid white; /* Increased border thickness */
+    color: inherit; /* Keep the text color as is */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <div id="content">
+            <!-- Content will be dynamically inserted here -->
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="setActive(this, 'favorites')">
+                <div class="nav-icon">⭐</div>
+                <div>Favorites</div>
+            </div>
+            <div class="nav-item" onclick="setActive(this, 'recents')">
+                <div class="nav-icon">🕒</div>
+                <div>Recents</div>
+            </div>
+            <div class="nav-item" onclick="setActive(this, 'contacts')">
+                <div class="nav-icon">👤</div>
+                <div>Contacts</div>
+            </div>
+            <div class="nav-item active" onclick="setActive(this, 'keypad')">
+                <div class="nav-icon">⌨️</div>
+                <div>Keypad</div>
+            </div>
+            <div class="nav-item" onclick="setActive(this, 'voicemail')">
+                <div class="nav-icon">🔊</div>
+                <div>Voicemail</div>
+            </div>
+            
+        </div>
+        <div>
+            <a href="home.html">_____________</a>
+        </div>
+       
+    </div>
+    
+
+    <script>
+        let displayValue = '';
+        let display;
+        const content = document.getElementById('content');
+        let callHistory = [];
+
+        function addNumber(num) {
+            displayValue += num;
+            display.textContent = displayValue;
+        }
+
+        function call() {
+            if (displayValue) {
+                alert(`Calling ${displayValue}`);
+                callHistory.unshift({number: displayValue, date: new Date()}); // Add to call history
+                displayValue = '';
+                display.textContent = displayValue;
+            } else {
+                alert('Please enter a number first');
+            }
+        }
+
+        function setActive(element, tab) {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            element.classList.add('active');
+
+            switch(tab) {
+                case 'favorites':
+                    content.innerHTML = '<div class="message">No Favorites</div>';
+                    break;
+                case 'recents':
+                    if (callHistory.length > 0) {
+                        content.innerHTML = callHistory.map(call => `
+                            <div class="recent-call">
+                                <div>${call.number}</div>
+                                <div style="font-size: 12px; color: #999;">
+                                    ${call.date.toLocaleString()}
+                                </div>
+                            </div>
+                        `).join('');
+                    } else {
+                        content.innerHTML = '<div class="message">No Recents</div>';
+                    }
+                    break;
+                case 'contacts':
+                    content.innerHTML = '<div class="message">No Contacts</div>';
+                    break;
+                case 'voicemail':
+                    content.innerHTML = '<div class="message">No Voicemail</div>';
+                    break;
+                case 'keypad':
+                    content.innerHTML = `
+                        <div id="display"></div>
+                        <div class="keypad">
+                            <button onclick="addNumber('1')">1</button>
+                            <button onclick="addNumber('2')">2</button>
+                            <button onclick="addNumber('3')">3</button>
+                            <button onclick="addNumber('4')">4</button>
+                            <button onclick="addNumber('5')">5</button>
+                            <button onclick="addNumber('6')">6</button>
+                            <button onclick="addNumber('7')">7</button>
+                            <button onclick="addNumber('8')">8</button>
+                            <button onclick="addNumber('9')">9</button>
+                            <button onclick="addNumber('*')">*</button>
+                            <button onclick="addNumber('0')">0</button>
+                            <button onclick="addNumber('#')">#</button>
+                            <button class="call-btn" onclick="call()">Call</button>
+                        </div>
+                    `;
+                    display = document.getElementById('display');
+                    displayValue = ''; // Reset the display value
+                    break;
+            }
+        }
+
+        // Initialize the keypad on page load
+        window.onload = function() {
+            setActive(document.querySelector('.nav-item.active'), 'keypad');
+        }
+    </script>
+</body>
+</html>
